@@ -1,0 +1,18 @@
+version: "3"
+services:
+  database:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: postgresql
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+    volumes:
+      - ./postgresql/data:/data
+
+# docker-compose up -d
+
+# or
+# docker run --name pgsql -d -p 5432:5432 -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test postgres
