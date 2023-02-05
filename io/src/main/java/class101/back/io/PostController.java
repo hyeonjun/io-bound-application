@@ -1,5 +1,7 @@
 package class101.back.io;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,12 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 
   private final PostRepository postRepository;
+  private final ObjectMapper objectMapper;
+  private final Producer producer;
   private static Integer PAGE_SIZE = 20;
 
   // 1. 글을 작성한다.
+//  @PostMapping
+//  public Post createPost(@RequestBody Post post) {
+//    return postRepository.save(post);
+//  }
   @PostMapping
-  public Post createPost(@RequestBody Post post) {
-    return postRepository.save(post);
+  public Post createPost(@RequestBody Post post) throws JsonProcessingException {
+    String json = objectMapper.writeValueAsString(post);
+    producer.sendTo(json);
+    return post; // id는 null인 채로 돌아갈 것.
   }
 
   // 2. 글 목록을 페이징하여 반환
@@ -46,4 +56,6 @@ public class PostController {
   public List<Post> findPostsByContent(@RequestParam String content) {
     return postRepository.findAllByContentContains(content);
   }
+
+
 }
