@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PostCacheService {
 
-  private final PostRepository postRepository;
-
-  private Page<Post> firtPostPage;
-
-  @Scheduled(cron = "* * * * * *")
-  public void updateFirstPostPage() {
-    firtPostPage = postRepository.findAll(
-      PageRequest.of(0, 20, Sort.by("id").descending()));
-  }
-
-  public Page<Post> getFirstPostPage() {
-    return this.firtPostPage;
-  }
+//  private final PostRepository postRepository;
+//
+//  private Page<Post> firtPostPage;
+//
+//  @Scheduled(cron = "* * * * * *")
+//  public void updateFirstPostPage() {
+//    firtPostPage = postRepository.findAll(
+//      PageRequest.of(0, 20, Sort.by("id").descending()));
+//  }
+//
+//  public Page<Post> getFirstPostPage() {
+//    return this.firtPostPage;
+//  }
 }
