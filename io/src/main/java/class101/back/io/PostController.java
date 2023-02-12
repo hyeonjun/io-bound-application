@@ -38,27 +38,28 @@ public class PostController {
     return post; // id는 null인 채로 돌아갈 것.
   }
 
-  // 2. 글 목록을 페이징하여 반환
-  @GetMapping
-  public Page<Post> getPostList(@RequestParam(defaultValue = "1") Integer page) {
-    if (page.equals(1)) {
-      return postCacheService.getFirstPostPage();
-    }
-    return postRepository.findAll(PageRequest.of(page-1, PAGE_SIZE,
-      Sort.by("id").descending()));
-  }
-
-  // 3. 글 번호로 조회
-  @GetMapping("/{id}")
-  public Post getPost(@PathVariable(value = "id") Long postId) {
-    return postRepository.findById(postId)
-      .orElse(null);
-  }
+//  // 2. 글 목록을 페이징하여 반환
+//  @GetMapping
+//  public Page<Post> getPostList(@RequestParam(defaultValue = "1") Integer page) {
+//    if (page.equals(1)) {
+//      return postCacheService.getFirstPostPage();
+//    }
+//    return postRepository.findAll(PageRequest.of(page-1, PAGE_SIZE,
+//      Sort.by("id").descending()));
+//  }
+//
+//  // 3. 글 번호로 조회
+//  @GetMapping("/{id}")
+//  public Post getPost(@PathVariable(value = "id") Long postId) {
+//    return postRepository.findById(postId)
+//      .orElse(null);
+//  }
 
   // 4. 글 내용으로 검색 -> 해당 내용이 포함된 모든 글
   @GetMapping("/search")
   public List<Post> findPostsByContent(@RequestParam String content) {
-    return postRepository.findAllByContentContains(content);
+//    return postRepository.findAllByContentContains(content);
+    return postRepository.findByContent(content);
   }
 
 
